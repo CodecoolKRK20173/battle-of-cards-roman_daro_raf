@@ -24,6 +24,13 @@ public class HandPile extends Pile{
         cards.remove(0);
     }
 
+    public  ArrayList<Card> getCards(){
+        return cards;
+    }
+
+    public  int getSize(){
+        return cards.size();
+    }
 
 
 

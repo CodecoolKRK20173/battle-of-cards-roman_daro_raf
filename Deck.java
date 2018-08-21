@@ -27,12 +27,16 @@ public class Deck extends Pile{
         cards.remove(0);
     }
 
-
     public  void shuffleListOfCards(){
         Collections.shuffle(cards);
-
     }
 
+    public  ArrayList<Card> getCards(){
+        return cards;
+    }
 
+    public  int getSize(){
+        return cards.size();
+    }
 
 }
