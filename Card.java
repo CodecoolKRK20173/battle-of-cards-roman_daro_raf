@@ -2,13 +2,15 @@
 
 public class Card {
     private boolean isFaceUp;
+    private String countryName;
     private float area;
     private float population;
     private float density;
     private float medianAge;
 
-    public Card(float area, float population, float density, float medianAge) {
+    public Card(String countryName, float population, float density, float area, float medianAge) {
         this.isFaceUp = false;
+        this.countryName = countryName;
         this.area = area;
         this.population = population;
         this.density = density;
@@ -17,6 +19,10 @@ public class Card {
 
     public boolean getIsFaceUp() {
         return this.isFaceUp;
+    }
+
+    public String getCountryName() {
+        return countryName;
     }
 
     public float getArea() {
