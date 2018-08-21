@@ -8,9 +8,8 @@ public class Card {
     private float density;
     private float medianAge;
 
-    public Card(String countryName) {
+    public Card() {
         this.isFaceUp = false;
-        this.countryName = countryName;
     }
 
     public boolean getIsFaceUp() {
@@ -47,6 +46,10 @@ public class Card {
 
     public void flip() {
         this.isFaceUp = !this.isFaceUp;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public void setArea(float area) {
