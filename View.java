@@ -18,14 +18,31 @@ public class View{
         String frontSuit = "";
         
         frontSuit += upAndDownRow;
-        frontSuit += card.getCountryName() + "\n";
-        frontSuit += card.getPopulation() + "\n";
-        frontSuit += card.getDensity() + "\n";
-        frontSuit += card.getArea() + "\n";
-        frontSuit += card.getMedianAge() + "\n";
+        frontSuit += String.format("#%" + CARD_WIDTH + "s#\n", card.getCountryName());
+        frontSuit += String.format("#%" + CARD_WIDTH + "f#\n", card.getPopulation());
+        frontSuit += String.format("#%" + CARD_WIDTH + "f#\n", card.getDensity());
+        frontSuit += String.format("#%" + CARD_WIDTH + "f#\n", card.getArea());
+        frontSuit += String.format("#%" + CARD_WIDTH + "f#\n", card.getMedianAge());
         frontSuit += upAndDownRow;
 
 
         return frontSuit;
+    }
+
+    public String table() {
+        
+    }
+
+    public static void main(String[] args) {
+        Card nowa = new Card();
+        View nowy = new View();
+        nowa.setCountryName("dupa");
+        nowa.setPopulation(100);
+        nowa.setDensity(100);
+        nowa.setArea(100);
+        nowa.setMedianAge(200);
+
+        System.out.println(nowy.frontSuit(nowa));
+        System.out.println(nowy.backSuit());
     }
 }
