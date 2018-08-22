@@ -14,9 +14,11 @@ public class Game{
     private int category;
     private ArrayList<Card> handCards;
     private boolean isDraw;
+    private int winningPlayerIndex;
     
 
     public Game(int numberOfPlayers, String... names){
+        this.winningPlayerIndex = -1;
         this.isWon = false;
         this.isDraw = true;
         this.numberOfPlayers = numberOfPlayers;
@@ -29,7 +31,7 @@ public class Game{
     }
 
     private void setPlayers( String[] names){
-        for(int i = 1; i <= this.numberOfPlayers; i++ ){
+        for(int i = 0; i < this.numberOfPlayers; i++ ){
             players.add(new Player("Player", i));
         }
     }
@@ -105,6 +107,7 @@ public class Game{
         getHandCards();
         sortByCategory();
         markIfDraw();
+        setWinningPlayer();
     }
 
     private void getHandCards() {
@@ -126,7 +129,11 @@ public class Game{
 
     private void markIfDraw(){
         // should save draw in separate class that remembers isDraw and player indexes
+        this.isDraw = false;
+    }
 
+    private void setWinningPlayer(){
+        this.winningPlayerIndex = this.handCards.get(0).getOwnerIndex();
     }
 
     private void moveCardsToWinningPlayer(){
