@@ -34,13 +34,11 @@ public class HumanPlayer extends Player{
 
     public void addCardToStock(Card card){
         stockPile.addCard(card);
-        card.setOwnerIndex(..........);
     }
 
     public void addCardToStock(ArrayList<Card> listOfCards ){
         for (Card  card : listOfCards){
             stockPile.addCard(card);
-            card.setOwnerIndex(...........);
         }
     }
 
@@ -49,5 +47,6 @@ public class HumanPlayer extends Player{
         stockPile.removeTop();
         handPile.addCard(topCard);
     }
+
 
 }
