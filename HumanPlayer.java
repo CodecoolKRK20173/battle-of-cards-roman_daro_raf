@@ -9,6 +9,12 @@ public class HumanPlayer extends Player{
     private int number;
 
 
+    public HumanPlayer( int number){
+        this.number = number;
+        this.handPile = new HandPile();
+        this.stockPile = new StockPile();
+    }
+
     public HumanPlayer(String name, int number){
         this.name = name;
         this.number = number;
@@ -33,11 +39,13 @@ public class HumanPlayer extends Player{
     }
 
     public void addCardToStock(Card card){
+        card.setOwnerIndex(number);
         stockPile.addCard(card);
     }
 
     public void addCardToStock(ArrayList<Card> listOfCards ){
         for (Card  card : listOfCards){
+            card.setOwnerIndex(number);
             stockPile.addCard(card);
         }
     }
@@ -48,5 +56,9 @@ public class HumanPlayer extends Player{
         handPile.addCard(topCard);
     }
 
+    public void revealHand(){
+        Card card = handPile.getTop();
+        card.setFaceUp();
+    }
 
 }
