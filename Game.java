@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Game{
     private int currentPlayer;
@@ -10,12 +11,13 @@ public class Game{
     private Pile deck;
     private boolean isWon;
     private int category;
+    private ArrayList<Card> handCards;
     
 
     public Game(int numberOfPlayers, String... names){
-        
         this.isWon = false;
         this.numberOfPlayers = numberOfPlayers;
+        this.handCards = new ArrayList<>();
         this.deck = new Pile();
         this.currentPlayer = 1;
         loadDeck();
@@ -67,6 +69,7 @@ public class Game{
                 moveCardsToHand();
                 revealActiveHand();
                 chooseCategory();
+                revealAllCards();
                 compareCards();
                 
             }
@@ -95,6 +98,10 @@ public class Game{
 
     private void compareCards(){
 
+    } 
+
+    private Card getCardLargestArea(){
+        return players.stream().max(Comparator.comparing(Player::getHandPile().getTop().) )
     }
 
     private void moveCardsToWinningPlayer(){
