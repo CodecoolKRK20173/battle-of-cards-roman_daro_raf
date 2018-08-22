@@ -43,8 +43,8 @@ public class HumanPlayer extends Player{
         stockPile.addCard(card);
     }
 
-    public void addCardToStock(ArrayList<Card> listOfCards ){
-        for (Card  card : listOfCards){
+    public void addCardToStock(Pile pileOfCards ){
+        for (Card  card : pileOfCards.getCards()){
             card.setOwnerIndex(number);
             stockPile.addCard(card);
         }
