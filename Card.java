@@ -10,14 +10,10 @@ public class Card implements Comparable<Card> {
     private float population;
     private float density;
     private float medianAge;
+    private int ownerIndex;
 
-    public Card(String countryName, float population, float density, float area, float medianAge) {
+    public Card() {
         this.isFaceUp = false;
-        this.countryName = countryName;
-        this.area = area;
-        this.population = population;
-        this.density = density;
-        this.medianAge = medianAge;
     }
 
     public boolean getIsFaceUp() {
@@ -44,6 +40,10 @@ public class Card implements Comparable<Card> {
         return this.medianAge;
     }
 
+    public int getOwnerIndex() {
+        return ownerIndex;
+    }
+
     public void setFaceUp() {
         this.isFaceUp = true;
     }
@@ -54,6 +54,30 @@ public class Card implements Comparable<Card> {
 
     public void flip() {
         this.isFaceUp = !this.isFaceUp;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
+
+    public void setDensity(float density) {
+        this.density = density;
+    }
+
+    public void setMedianAge(float medianAge) {
+        this.medianAge = medianAge;
+    }
+
+    public void setPopulation(float population) {
+        this.population = population;
+    }
+
+    public void setOwnerIndex(int index) {
+        this.ownerIndex = index;
     }
     
     @Override
