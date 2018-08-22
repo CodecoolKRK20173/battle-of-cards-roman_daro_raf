@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -49,6 +50,7 @@ public class Game{
             newCard.setDensity(Float.valueOf(countryData[DENSITY_COLLUMN]));
             newCard.setArea(Float.valueOf(countryData[AREA_COLLUMN]));
             newCard.setArea(Float.valueOf(MEDIAN_AGE_COLLUMN));
+            deck.addCard(newCard);
         }
 
         br.close();
