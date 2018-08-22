@@ -137,6 +137,8 @@ public class Game{
     }
 
     private void moveCardsToWinningPlayer(){
-
+        for(Player player: this.players){
+            this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
+        }
     }
 }
