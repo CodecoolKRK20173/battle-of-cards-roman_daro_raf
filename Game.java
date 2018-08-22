@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Game{
     private int currentPlayer;
@@ -10,12 +11,13 @@ public class Game{
     private Pile deck;
     private boolean isWon;
     private int category;
+    private ArrayList<Card> handCards;
     
 
     public Game(int numberOfPlayers, String... names){
-        
         this.isWon = false;
         this.numberOfPlayers = numberOfPlayers;
+        this.handCards = new ArrayList<>();
         this.deck = new Pile();
         this.currentPlayer = 1;
         loadDeck();
@@ -64,6 +66,7 @@ public class Game{
                 moveCardsToHand();
                 revealActiveHand();
                 chooseCategory();
+                revealAllCards();
                 compareCards();
                 
             }
@@ -91,7 +94,30 @@ public class Game{
     }
 
     private void compareCards(){
+        this.handCards.clear();
+        getHandCards();
+        sortByCategory();
+        checkForDraw();
+    }
 
+    private getHandCards() {
+        for(Player player: this.players)
+            this.handCards.add(player.getHandPile().getTop());
+    }
+
+    private sortByCategory(){
+        if(this.category == "1")
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getArea()));
+        else if (this.category == "2")
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getDensity()));
+        else if (this.category == "3")
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getPopulation()));
+        else
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getPopulation()));
+
+    }
+
+    private Card getCardLargestArea(){
     }
 
     private void moveCardsToWinningPlayer(){
