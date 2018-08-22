@@ -1,6 +1,9 @@
-//to be Card
 
-public class Card {
+import java.lang.Comparable;
+
+
+//to be Card
+public class Card implements Comparable<Card> {
     private boolean isFaceUp;
     private String countryName;
     private float area;
@@ -53,4 +56,12 @@ public class Card {
         this.isFaceUp = !this.isFaceUp;
     }
     
+    @Override
+    public int compareTo(Card card){
+        if(this.getArea() < card.getArea()) return -1;
+        if(this.getArea() > card.getArea()) return 1;
+        else return 0;
+    }
+
+
 }
