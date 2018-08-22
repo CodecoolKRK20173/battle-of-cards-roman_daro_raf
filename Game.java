@@ -43,12 +43,15 @@ public class Game{
         String line;
         while ((line = br.readLine()) != null) {
             String[] countryData = line.split("/t");
-            deck.addCard(new Card(countryData[COUNTRY_NAME_COLLUMN], 
-                              Float.valueOf(countryData[POPULATION_COLLUMN]), 
-                              Float.valueOf(countryData[DENSITY_COLLUMN]), 
-                              Float.valueOf(countryData[AREA_COLLUMN]), 
-                              Float.valueOf(countryData[MEDIAN_AGE_COLLUMN])));   
+            Card newCard = new Card();
+            newCard.setCountryName(countryData[COUNTRY_NAME_COLLUMN]);
+            newCard.setPopulation(Float.valueOf(countryData[POPULATION_COLLUMN]));
+            newCard.setDensity(Float.valueOf(countryData[DENSITY_COLLUMN]));
+            newCard.setArea(Float.valueOf(countryData[AREA_COLLUMN]));
+            newCard.setArea(Float.valueOf(MEDIAN_AGE_COLLUMN));
         }
+
+        br.close();
     }
 
     private void dealCards(){

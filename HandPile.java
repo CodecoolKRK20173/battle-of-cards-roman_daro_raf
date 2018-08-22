@@ -13,7 +13,7 @@ public class HandPile extends Pile{
 
 
     public  void addCard(Card card){
-        cards.add(card);
+        cards.add(0, card);
     }
     
     public  Card getTop(){
