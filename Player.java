@@ -7,7 +7,7 @@ public abstract class Player{
     public abstract String getName();
     public abstract int getNumber();
     public abstract void addCardToStock(Card card);
-    public abstract void addCardToStock(ArrayList<Card> listOfCards);
+    public abstract void addCardToStock(Pile listOfCards);
     public abstract void fromStockToHand();
     public abstract void revealHand();
 
