@@ -7,6 +7,7 @@ public class Card {
     private float population;
     private float density;
     private float medianAge;
+    private int ownerIndex;
 
     public Card() {
         this.isFaceUp = false;
@@ -34,6 +35,10 @@ public class Card {
 
     public float medianAge() {
         return this.medianAge;
+    }
+
+    public int getOwnerIndex() {
+        return ownerIndex;
     }
 
     public void setFaceUp() {
@@ -66,6 +71,10 @@ public class Card {
 
     public void setPopulation(float population) {
         this.population = population;
+    }
+
+    public void setOwnerIndex(int index) {
+        this.ownerIndex = index;
     }
     
 }
