@@ -32,7 +32,7 @@ public class Card {
         return this.density;
     }
 
-    public float medianAge() {
+    public float getMedianAge() {
         return this.medianAge;
     }
 
