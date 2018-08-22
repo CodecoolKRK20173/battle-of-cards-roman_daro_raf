@@ -1,9 +1,9 @@
 public class View{
     final int CARD_WIDTH = 13;
+    String upAndDownRow = "###############\n";
 
     public String backSuit() {
         String backSuit = "";
-        String upAndDownRow = "###############";
 
         backSuit += upAndDownRow;
         for (int i = 0; i < 5; i++) {
@@ -17,7 +17,15 @@ public class View{
     public String frontSuit(Card card) {
         String frontSuit = "";
         
+        frontSuit += upAndDownRow;
+        frontSuit += card.getCountryName() + "\n";
+        frontSuit += card.getPopulation() + "\n";
+        frontSuit += card.getDensity() + "\n";
+        frontSuit += card.getArea() + "\n";
+        frontSuit += card.getMedianAge() + "\n";
+        frontSuit += upAndDownRow;
 
-        return null;
+
+        return frontSuit;
     }
 }
