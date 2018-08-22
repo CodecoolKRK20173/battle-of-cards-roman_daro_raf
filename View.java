@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class View{
     final int CARD_WIDTH = 13;
     String upAndDownRow = "###############\n";
@@ -29,8 +31,9 @@ public class View{
         return frontSuit;
     }
 
-    public String tableView() {
+    public String tableView(ArrayList<Card> handCards) {
         String[] legend = {"Legend:", "Name", "Population", "Density", "Area", "Median Age"};
+        String[][] cards = new String[7][handCards.size() + 1];
     }
 
     public static void main(String[] args) {
