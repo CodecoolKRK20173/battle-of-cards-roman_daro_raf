@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class Game{
@@ -15,15 +17,17 @@ public class Game{
     private ArrayList<Card> handCards;
     private boolean isDraw;
     private int winningPlayerIndex;
+    private int numberOfCards;
     
 
-    public Game(int numberOfPlayers, String... names){
+    public Game(int numberOfPlayers, int numberOfCards, String... names){
+        this.numberOfCards = numberOfCards;
         this.winningPlayerIndex = -1;
         this.isWon = false;
         this.isDraw = true;
         this.numberOfPlayers = numberOfPlayers;
         this.handCards = new ArrayList<>();
-        this.deck = new Pile();
+        this.deck = new Deck();
         this.currentPlayer = 1;
         loadDeck();
         setPlayers(names);
@@ -32,7 +36,7 @@ public class Game{
 
     private void setPlayers( String[] names){
         for(int i = 0; i < this.numberOfPlayers; i++ ){
-            players.add(new Player("Player", i));
+            players.add(new HumanPlayer("Player", i));
         }
     }
 
@@ -43,27 +47,30 @@ public class Game{
         final int AREA_COLLUMN = 3;
         final int MEDIAN_AGE_COLLUMN = 4; 
 
-        BufferedReader br = new BufferedReader(new FileReader(new File("countries.txt")));
-
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] countryData = line.split("/t");
-            Card newCard = new Card();
-            newCard.setCountryName(countryData[COUNTRY_NAME_COLLUMN]);
-            newCard.setPopulation(Float.valueOf(countryData[POPULATION_COLLUMN]));
-            newCard.setDensity(Float.valueOf(countryData[DENSITY_COLLUMN]));
-            newCard.setArea(Float.valueOf(countryData[AREA_COLLUMN]));
-            newCard.setArea(Float.valueOf(MEDIAN_AGE_COLLUMN));
-            deck.addCard(newCard);
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(new File("countries.txt")));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] countryData = line.split("/t");
+                Card newCard = new Card();
+                newCard.setCountryName(countryData[COUNTRY_NAME_COLLUMN]);
+                newCard.setPopulation(Float.valueOf(countryData[POPULATION_COLLUMN]));
+                newCard.setDensity(Float.valueOf(countryData[DENSITY_COLLUMN]));
+                newCard.setArea(Float.valueOf(countryData[AREA_COLLUMN]));
+                newCard.setArea(Float.valueOf(MEDIAN_AGE_COLLUMN));
+                deck.addCard(newCard);
+            }
+            br.close();
+        } catch(IOException e){
+            System.out.println("File not found");
         }
-
-        br.close();
+        
     }
 
     private void dealCards(){
         int playerNumber = 0;
         for(Card nextCard: deck.getCards()){
-            plyers.get(playerNumber % this.numberOfPlayers).addCardsToStock(nextCard);
+            players.get(playerNumber % this.numberOfPlayers).addCardToStock(nextCard);
             playerNumber++;
         }
     }
@@ -98,8 +105,16 @@ public class Game{
     private void chooseCategory(){
         //REPLACE WITH VIEW.costam
         System.out.println("Choose category");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        this.category = Integer.parseInt(reader.readLine());
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            this.category = Integer.parseInt(reader.readLine());
+        } catch (IOException e) {
+            System.out.printf("Please enter number from 1 - %d", this.numberOfPlayers);     // MOVE THIS TO VIEW
+        }
+    }
+
+    private void revealAllCards(){
+        // TO DO
     }
 
     private void compareCards(){
@@ -116,14 +131,14 @@ public class Game{
     }
 
     private void sortByCategory(){
-        if(this.category == "1")
-            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getArea()));
-        else if (this.category == "2")
-            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getDensity()));
-        else if (this.category == "3")
-            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getPopulation()));
+        if(this.category == 1)
+            this.handCards.sort(Comparator.comparing(Card::getArea));
+        else if (this.category == 2)
+            this.handCards.sort(Comparator.comparing(Card::getDensity));
+        else if (this.category == 3)
+            this.handCards.sort(Comparator.comparing(Card::getPopulation));
         else
-            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getMedianAge()));
+            this.handCards.sort(Comparator.comparing(Card::getMedianAge));
 
     }
 
@@ -139,6 +154,17 @@ public class Game{
     private void moveCardsToWinningPlayer(){
         for(Player player: this.players){
             this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
+        }
+    }
+
+    private void setActiveAsWinning(){
+        this.currentPlayer = this.winningPlayerIndex;
+    }
+
+    private void checkIfWon(){
+        if(this.players.get(this.winningPlayerIndex).getStockPile().getSize() >= this.numberOfCards){
+            this.isWon = true;
+            // VIEW WILL PRINT WINNING MESSAGE WITH WINNING PLAYER NAME
         }
     }
 }
