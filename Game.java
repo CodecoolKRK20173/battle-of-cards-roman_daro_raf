@@ -13,10 +13,12 @@ public class Game{
     private boolean isWon;
     private int category;
     private ArrayList<Card> handCards;
+    private boolean isDraw;
     
 
     public Game(int numberOfPlayers, String... names){
         this.isWon = false;
+        this.isDraw = true;
         this.numberOfPlayers = numberOfPlayers;
         this.handCards = new ArrayList<>();
         this.deck = new Pile();
@@ -65,8 +67,8 @@ public class Game{
     }
 
     public void runGame(){
-        boolean isDraw = true;
         while(!this.isWon){
+            this.isDraw = true;
             while (isDraw) {    
                 moveCardsToHand();
                 revealActiveHand();
@@ -99,11 +101,32 @@ public class Game{
     }
 
     private void compareCards(){
+        this.handCards.clear();
+        getHandCards();
+        sortByCategory();
+        markIfDraw();
+    }
 
-    } 
+    private void getHandCards() {
+        for(Player player: this.players)
+            this.handCards.add(player.getHandPile().getTop());
+    }
 
-    private Card getCardLargestArea(){
-        return players.stream().max(Comparator.comparing(Player::getHandPile().getTop().) )
+    private void sortByCategory(){
+        if(this.category == "1")
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getArea()));
+        else if (this.category == "2")
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getDensity()));
+        else if (this.category == "3")
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getPopulation()));
+        else
+            Collections.sort(this.handCards, Comparator.comparing((Card card) -> card.getMedianAge()));
+
+    }
+
+    private void markIfDraw(){
+        // should save draw in separate class that remembers isDraw and player indexes
+
     }
 
     private void moveCardsToWinningPlayer(){
