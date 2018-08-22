@@ -33,7 +33,11 @@ public class View{
 
     public String tableView(ArrayList<Card> handCards) {
         String[] legend = {"Legend:", "Name", "Population", "Density", "Area", "Median Age"};
-        String[][] cards = new String[7][handCards.size() + 1];
+        String[][] table = new String[7][handCards.size() + 1];
+
+        for (int i = 0; i < legend.length; i++) {
+            table[0][i] = legend[i];
+        }
     }
 
     public static void main(String[] args) {
