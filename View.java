@@ -29,8 +29,8 @@ public class View{
         return frontSuit;
     }
 
-    public String table() {
-        
+    public String tableView() {
+        String[] legend = {"Legend:", "Name", "Population", "Density", "Area", "Median Age"};
     }
 
     public static void main(String[] args) {
