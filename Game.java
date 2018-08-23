@@ -101,11 +101,14 @@ public class Game{
                 this.handCards.clear();
                 moveCardsToHand();
                 revealActiveHand();
-                revealAllCards();
+                
                 getHandCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 chooseCategory();
+
+                revealAllCards();
+
                 this.view.printTableView(handCards, currentPlayer, players);
                 compareCards();
                 view.printWinningPlayer(winningPlayerIndex, players);
