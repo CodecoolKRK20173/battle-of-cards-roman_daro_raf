@@ -38,7 +38,7 @@ public class Card {
     }
 
     public int getOwnerIndex() {
-        return ownerIndex;
+        return this.ownerIndex;
     }
 
     public void setFaceUp() {

@@ -17,6 +17,7 @@ public class Game{
     private boolean isDraw;
     private int winningPlayerIndex;
     private int numberOfCards;
+    private View view;
     
 
     public Game(int numberOfPlayers, int numberOfCards, String... names){
@@ -30,6 +31,7 @@ public class Game{
         this.players = new ArrayList<>();
         this.deck = new Deck();
         this.currentPlayer = 0;
+        this.view = new View();
         loadDeck();
         setPlayers(names);
         // setPlayers();
@@ -55,7 +57,7 @@ public class Game{
                 newCard.setPopulation(Integer.valueOf(countryData[POPULATION_COLLUMN]));
                 newCard.setDensity(Integer.valueOf(countryData[DENSITY_COLLUMN]));
                 newCard.setArea(Integer.valueOf(countryData[AREA_COLLUMN]));
-                newCard.setArea(Integer.valueOf(MEDIAN_AGE_COLLUMN));
+                newCard.setMedianAge(Integer.valueOf(countryData[MEDIAN_AGE_COLLUMN]));
                 deck.addCard(newCard);
                 line = br.readLine();
             }
@@ -91,6 +93,8 @@ public class Game{
             this.isDraw = true;
             while (isDraw) {    
                 moveCardsToHand();
+                System.out.println(this.view.tableView(handCards, currentPlayer, players));
+                System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 revealActiveHand();
                 chooseCategory();
                 revealAllCards();
