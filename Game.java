@@ -123,12 +123,8 @@ public class Game{
                 getHandCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
-<<<<<<< HEAD
                 view.chooseCategory(players, currentPlayer, category, numberOfPlayers);
                 revealAllCards();
-=======
-                chooseCategory();
->>>>>>> 7d4289d38f0faa845dc64392e333bd16365aa077
                 this.view.printTableView(handCards, currentPlayer, players);
                 compareCards();
                 view.printWinningPlayer(winningPlayerIndex, players);
