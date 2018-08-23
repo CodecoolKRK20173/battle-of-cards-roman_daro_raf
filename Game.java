@@ -100,7 +100,9 @@ public class Game{
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 chooseCategory();
                 revealAllCards();
+                System.out.println(this.view.tableView(handCards, currentPlayer, players));
                 compareCards();
+                view.printWinningPlayer(winningPlayerIndex, players);
                 
             }
             moveCardsToWinningPlayer();
@@ -131,7 +133,9 @@ public class Game{
     }
 
     private void revealAllCards(){
-        // TO DO
+        for (Player p: players) {
+            p.revealHand();
+        }
     }
 
     private void compareCards(){
@@ -163,7 +167,7 @@ public class Game{
     }
 
     private void setWinningPlayer(){
-        this.winningPlayerIndex = this.handCards.get(0).getOwnerIndex();
+        this.winningPlayerIndex = this.handCards.get(this.handCards.size()-1).getOwnerIndex();
     }
 
     private void moveCardsToWinningPlayer(){
