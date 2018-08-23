@@ -26,6 +26,8 @@ public class View {
             }
         }
 
+        sc.close();
+
     }
 
     private void printMainMenu() {
@@ -126,47 +128,4 @@ public class View {
         return new String(new char[times]).replace("\0", str);
     }
 
-    public static void main(String[] args) {
-        View nowy = new View();
-        Card nowa1 = new Card();
-        nowa1.setCountryName("dupa");
-        nowa1.setPopulation(1);
-        nowa1.setDensity(1);
-        nowa1.setArea(1);
-        nowa1.setMedianAge(1);
-        nowa1.setFaceUp();
-        Card nowa2 = new Card();
-        nowa2.setCountryName("dupa");
-        nowa2.setPopulation(200);
-        nowa2.setDensity(200);
-        nowa2.setArea(200);
-        nowa2.setMedianAge(200);
-        nowa2.setFaceUp();
-        Card nowa3 = new Card();
-        nowa3.setCountryName("dupahuj");
-        nowa3.setPopulation(4100);
-        nowa3.setDensity(4100);
-        nowa3.setArea(4100);
-        nowa3.setMedianAge(4200);
-        nowa3.setFaceUp();
-
-        Card nowa4 = new Card();
-        nowa4.setCountryName("dupahuj");
-        nowa4.setPopulation(4100);
-        nowa4.setDensity(4100);
-        nowa4.setArea(4100);
-        nowa4.setMedianAge(4200);
-        nowa4.setFaceDown();
-
-        ArrayList<Card> dupaaa = new ArrayList<Card>();
-        dupaaa.add(nowa1);
-        dupaaa.add(nowa2);
-        dupaaa.add(nowa3);
-        dupaaa.add(nowa4);
-
-        // System.out.println(nowy.frontSuit(nowa));
-        // System.out.println(nowy.backSuit());
-
-        System.out.println(nowy.tableView(dupaaa, 2, new ArrayList<Player>(new Player("DUPAAAAAAAAAA"))));
-    }
 }
