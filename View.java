@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,17 +11,18 @@ public class View {
     public void menu() {
         Scanner sc = new Scanner(System.in);
         printMainMenu();
-        String choice = sc.nextLine();
+        String choice = "";
         boolean isRunning = true;
-
+        
         while (isRunning) {
+            choice = sc.nextLine();
             isRunning = false;
 
             switch (choice) {
                 case "1":
                 break;
                 case "0":
-                break;
+                break; 
                 default: 
                 System.out.println("Unknown choice! Try again...");
                 isRunning = true;
@@ -26,7 +30,7 @@ public class View {
             }
         }
 
-        sc.close();
+        //sc.close();
 
     }
 
@@ -130,6 +134,16 @@ public class View {
 
     public void printTableView(ArrayList<Card> handCards, int currentPlayer, ArrayList<Player> players) {
         System.out.println(tableView(handCards, currentPlayer, players));
+    }
+
+    public void chooseCategory(ArrayList<Player> players, int currentPlayer, int category, int numberOfPlayers) {
+        System.out.printf("%s choose category: ", players.get(currentPlayer).getName());
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            category = Integer.parseInt(reader.readLine());
+        } catch (IOException e) {
+            System.out.printf("Please enter number from 1 - %d", numberOfPlayers);
+        }
     }
 
     private String repeat(String str, int times) {

@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -89,16 +88,17 @@ public class Game{
     }
 
     public void runGame(){
+        //view.menu();   
         while(!this.isWon){
             this.isDraw = true;
-            while (isDraw) {    
+            while (isDraw) { 
                 this.handCards.clear();
                 moveCardsToHand();
                 revealActiveHand();
                 getHandCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
-                chooseCategory();
+                view.chooseCategory(players, currentPlayer, category, numberOfPlayers);
                 revealAllCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 compareCards();
@@ -121,16 +121,16 @@ public class Game{
         this.players.get(this.currentPlayer).revealHand();
     }
 
-    private void chooseCategory(){
-        //REPLACE WITH VIEW.costam
-        System.out.printf("%s choose category: ", this.players.get(this.currentPlayer).getName());
-        try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            this.category = Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
-            System.out.printf("Please enter number from 1 - %d", this.numberOfPlayers);     // MOVE THIS TO VIEW
-        }
-    }
+    // private void chooseCategory(){
+    //     //REPLACE WITH VIEW.costam
+    //     System.out.printf("%s choose category: ", this.players.get(this.currentPlayer).getName());
+    //     try{
+    //         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    //         this.category = Integer.parseInt(reader.readLine());
+    //     } catch (IOException e) {
+    //         System.out.printf("Please enter number from 1 - %d", this.numberOfPlayers);     // MOVE THIS TO VIEW
+    //     }
+    // }
 
     private void revealAllCards(){
         for (Player p: players) {
