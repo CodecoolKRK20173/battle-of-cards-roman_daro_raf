@@ -93,12 +93,15 @@ public class Game{
             this.isDraw = true;
             while (isDraw) {    
                 moveCardsToHand();
-                System.out.println(this.view.tableView(handCards, currentPlayer, players));
-                System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
+                //System.out.println(this.view.tableView(handCards, currentPlayer, players));
+                //System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 revealActiveHand();
+                System.out.println(this.view.tableView(handCards, currentPlayer, players));
                 chooseCategory();
                 revealAllCards();
+                System.out.println(this.view.tableView(handCards, currentPlayer, players));
                 compareCards();
+                view.printWinningPlayer(winningPlayerIndex, players);
                 
             }
             moveCardsToWinningPlayer();
@@ -131,9 +134,8 @@ public class Game{
     }
 
     private void revealAllCards(){
-        for( Card card : this.handCards) {
-            card.setFaceUp();
-  
+        for (Player p: players) {
+            p.revealHand();
         }
     }
 

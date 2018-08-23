@@ -63,6 +63,10 @@ public class View {
         return frontSuit;
     }
 
+    public void printWinningPlayer(int winningPlayerIndex, ArrayList<Player> players) {
+        System.out.println("\nThis turn won: " + players.get( winningPlayerIndex).getName() + "\n");
+    }
+
     public String tableView(ArrayList<Card> handCards, int currentPlayer, ArrayList<Player> players) {
         String[][] table = new String[handCards.size() + 1][7];
 
@@ -118,7 +122,7 @@ public class View {
         tableViewString += String.format("%20s\t", " ");
 
         for (Player p: players) {
-            tableViewString += String.format("%20s\t", p.getName());
+            tableViewString += String.format("%20s\t", p.getName() + ": " + p.getStockPile().getSize());
         }
 
         return tableViewString;
