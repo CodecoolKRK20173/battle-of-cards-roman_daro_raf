@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Game{
+    final int POPULATION_COLLUMN = 1;
+    final int DENSITY_COLLUMN = 2;
+    final int AREA_COLLUMN = 3;
+    final int MEDIAN_AGE_COLLUMN = 4; 
     private int currentPlayer;
     private int numberOfPlayers;
     private ArrayList<Player> players;
@@ -92,6 +96,7 @@ public class Game{
         while(!this.isWon){
             this.isDraw = true;
             while (isDraw) {    
+                deactivateLoosers();
                 this.handCards.clear();
                 moveCardsToHand();
                 revealActiveHand();
@@ -111,9 +116,17 @@ public class Game{
         }
     }
 
+    private void deactivateLoosers(){
+        for(Player player: this.players) {
+            if(player.getStockPile().getSize() <= 0)
+                player.setIsActive(false);
+        }
+    }
+
     private void moveCardsToHand(){
         for (Player player : this.players) {
-            player.fromStockToHand();
+            if(player.getIsActive())
+                player.fromStockToHand();
         }
     }
 
@@ -152,13 +165,13 @@ public class Game{
     }
 
     private void sortByCategory(){
-        if(this.category == 1)
-            this.handCards.sort(Comparator.comparing(Card::getArea));
-        else if (this.category == 2)
-            this.handCards.sort(Comparator.comparing(Card::getDensity));
-        else if (this.category == 3)
+        if(this.category == this.POPULATION_COLLUMN)
             this.handCards.sort(Comparator.comparing(Card::getPopulation));
-        else
+        else if (this.category == this.DENSITY_COLLUMN)
+            this.handCards.sort(Comparator.comparing(Card::getDensity));
+        else if (this.category == this.AREA_COLLUMN)
+            this.handCards.sort(Comparator.comparing(Card::getArea));
+        else if (this.category == this.MEDIAN_AGE_COLLUMN)
             this.handCards.sort(Comparator.comparing(Card::getMedianAge));
 
     }

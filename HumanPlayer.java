@@ -12,6 +12,7 @@ public class HumanPlayer extends Player{
 
     public HumanPlayer( int playerIndex){
         this.name = "Player";
+        this.isActive = true;
         this.playerIndex = playerIndex;
         this.handPile = new HandPile();
         this.stockPile = new StockPile();
@@ -19,6 +20,7 @@ public class HumanPlayer extends Player{
 
     public HumanPlayer(String name, int playerIndex){
         this.name = name;
+        this.isActive = true;
         this.playerIndex = playerIndex;
         this.handPile = new HandPile();
         this.stockPile = new StockPile();
