@@ -92,14 +92,15 @@ public class Game{
         while(!this.isWon){
             this.isDraw = true;
             while (isDraw) {    
+                this.handCards.clear();
                 moveCardsToHand();
-                //System.out.println(this.view.tableView(handCards, currentPlayer, players));
-                //System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 revealActiveHand();
-                System.out.println(this.view.tableView(handCards, currentPlayer, players));
+                getHandCards();
+                this.view.printTableView(handCards, currentPlayer, players);
+                // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 chooseCategory();
                 revealAllCards();
-                System.out.println(this.view.tableView(handCards, currentPlayer, players));
+                this.view.printTableView(handCards, currentPlayer, players);
                 compareCards();
                 view.printWinningPlayer(winningPlayerIndex, players);
                 
@@ -140,8 +141,6 @@ public class Game{
     }
 
     private void compareCards(){
-        this.handCards.clear();
-        getHandCards();
         sortByCategory();
         markIfDraw();
         setWinningPlayer();
@@ -170,12 +169,14 @@ public class Game{
     }
 
     private void setWinningPlayer(){
-        this.winningPlayerIndex = this.handCards.get(0).getOwnerIndex();
+        this.winningPlayerIndex = this.handCards.get(this.handCards.size()-1).getOwnerIndex();
     }
 
     private void moveCardsToWinningPlayer(){
         for(Player player: this.players){
+            player.getHandPile().cover();
             this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
+            player.getHandPile().clear();
         }
     }
 

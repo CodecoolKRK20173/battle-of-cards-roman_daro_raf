@@ -32,7 +32,13 @@ public class HandPile extends Pile{
         return cards.size();
     }
 
+    public void clear(){
+        this.cards.clear();
+    }
 
-
-    
+    public void cover(){
+        for(Card card: this.cards){
+            card.setFaceDown();
+        }
+    }
 }
