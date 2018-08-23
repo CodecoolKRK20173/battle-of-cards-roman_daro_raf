@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Game{
+    final int POPULATION_COLLUMN = 1;
+    final int DENSITY_COLLUMN = 2;
+    final int AREA_COLLUMN = 3;
+    final int MEDIAN_AGE_COLLUMN = 4; 
     private int currentPlayer;
     private int numberOfPlayers;
     private ArrayList<Player> players;
@@ -115,25 +119,39 @@ public class Game{
                 this.handCards.clear();
                 moveCardsToHand();
                 revealActiveHand();
+                revealAllCards();
                 getHandCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
+<<<<<<< HEAD
                 view.chooseCategory(players, currentPlayer, category, numberOfPlayers);
                 revealAllCards();
+=======
+                chooseCategory();
+>>>>>>> 7d4289d38f0faa845dc64392e333bd16365aa077
                 this.view.printTableView(handCards, currentPlayer, players);
                 compareCards();
                 view.printWinningPlayer(winningPlayerIndex, players);
                 
             }
             moveCardsToWinningPlayer();
+            deactivateLoosers();
             setActiveAsWinning();
             checkIfWon();
         }
     }
 
+    private void deactivateLoosers(){
+        for(Player player: this.players) {
+            if(player.getStockPile().getSize() <= 0)
+                player.setIsActive(false);
+        }
+    }
+
     private void moveCardsToHand(){
         for (Player player : this.players) {
-            player.fromStockToHand();
+            if(player.getStockPile().getSize() > 0)
+                player.fromStockToHand();
         }
     }
 
@@ -154,8 +172,13 @@ public class Game{
 
     private void revealAllCards(){
         for (Player p: players) {
-            p.revealHand();
+            if(p.getIsActive()) p.revealHand();
         }
+    }
+
+    private void getHandCards() {
+        for(Player player: this.players)
+            if (player.getIsActive()) this.handCards.add(player.getHandPile().getTop());
     }
 
     private void compareCards(){
@@ -164,19 +187,15 @@ public class Game{
         setWinningPlayer();
     }
 
-    private void getHandCards() {
-        for(Player player: this.players)
-            this.handCards.add(player.getHandPile().getTop());
-    }
 
     private void sortByCategory(){
-        if(this.category == 1)
-            this.handCards.sort(Comparator.comparing(Card::getArea));
-        else if (this.category == 2)
-            this.handCards.sort(Comparator.comparing(Card::getDensity));
-        else if (this.category == 3)
+        if(this.category == this.POPULATION_COLLUMN)
             this.handCards.sort(Comparator.comparing(Card::getPopulation));
-        else
+        else if (this.category == this.DENSITY_COLLUMN)
+            this.handCards.sort(Comparator.comparing(Card::getDensity));
+        else if (this.category == this.AREA_COLLUMN)
+            this.handCards.sort(Comparator.comparing(Card::getArea));
+        else if (this.category == this.MEDIAN_AGE_COLLUMN)
             this.handCards.sort(Comparator.comparing(Card::getMedianAge));
 
     }
@@ -192,9 +211,11 @@ public class Game{
 
     private void moveCardsToWinningPlayer(){
         for(Player player: this.players){
-            player.getHandPile().cover();
-            this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
-            player.getHandPile().clear();
+            if(player.getIsActive()){
+                player.getHandPile().cover();
+                this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
+                player.getHandPile().clear();
+            }
         }
     }
 
@@ -205,6 +226,7 @@ public class Game{
     private void checkIfWon(){
         if(this.players.get(this.winningPlayerIndex).getStockPile().getSize() >= this.numberOfCards){
             this.isWon = true;
+            System.out.printf("%s WON", this.players.get(this.winningPlayerIndex));
             // VIEW WILL PRINT WINNING MESSAGE WITH WINNING PLAYER NAME
         }
     }
