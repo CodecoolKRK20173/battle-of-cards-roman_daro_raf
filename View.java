@@ -53,11 +53,11 @@ public class View {
         String frontSuit = "";
 
         frontSuit += topAndDownRow;
-        frontSuit += String.format("#%" + CARD_WIDTH + "s#\n", card.getCountryName());
-        frontSuit += String.format("#%" + CARD_WIDTH + "d#\n", card.getPopulation());
-        frontSuit += String.format("#%" + CARD_WIDTH + "d#\n", card.getDensity());
-        frontSuit += String.format("#%" + CARD_WIDTH + "d#\n", card.getArea());
-        frontSuit += String.format("#%" + CARD_WIDTH + "d#\n", card.getMedianAge());
+        frontSuit += String.format("#%" + (CARD_WIDTH-1) + "s #\n", card.getCountryName());
+        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getPopulation());
+        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getDensity());
+        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getArea());
+        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getMedianAge());
         frontSuit += topAndDownRow;
 
         return frontSuit;
