@@ -21,23 +21,20 @@ public class Game{
     
 
     public Game(int numberOfPlayers, int numberOfCards, String... names){
+        // for(String name: names) System.out.println(name);
+        this.numberOfPlayers = numberOfPlayers;
         this.numberOfCards = numberOfCards;
         this.winningPlayerIndex = -1;
         this.isWon = false;
         this.isDraw = true;
-        this.numberOfPlayers = numberOfPlayers;
         this.handCards = new ArrayList<>();
+        this.players = new ArrayList<>();
         this.deck = new Deck();
-        this.currentPlayer = 1;
+        this.currentPlayer = 0;
         loadDeck();
         setPlayers(names);
+        // setPlayers();
         dealCards();
-    }
-
-    private void setPlayers( String[] names){
-        for(int i = 0; i < this.numberOfPlayers; i++ ){
-            players.add(new HumanPlayer("Player", i));
-        }
     }
 
     private void loadDeck() {
@@ -49,9 +46,11 @@ public class Game{
 
         try{
             BufferedReader br = new BufferedReader(new FileReader(new File("countries.txt")));
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] countryData = line.split("/t");
+            String line = br.readLine();
+            while (line != null) {
+                String[] countryData = line.split("\t");
+                // for(String data: countryData) System.out.printf("%s ", data);
+                // System.out.println();
                 Card newCard = new Card();
                 newCard.setCountryName(countryData[COUNTRY_NAME_COLLUMN]);
                 newCard.setPopulation(Float.valueOf(countryData[POPULATION_COLLUMN]));
@@ -59,12 +58,25 @@ public class Game{
                 newCard.setArea(Float.valueOf(countryData[AREA_COLLUMN]));
                 newCard.setArea(Float.valueOf(MEDIAN_AGE_COLLUMN));
                 deck.addCard(newCard);
+                line = br.readLine();
             }
             br.close();
         } catch(IOException e){
             System.out.println("File not found");
         }
         
+    }
+
+    private void setPlayers( String[] names){
+        for(int i = 0; i < this.numberOfPlayers; i++ ){
+            this.players.add(new HumanPlayer(names[i], i));
+        }
+    }
+
+    private void setPlayers(){
+        for(int i = 0; i < this.numberOfPlayers; i++ ){
+            this.players.add(new HumanPlayer(i));
+        }
     }
 
     private void dealCards(){
@@ -104,7 +116,7 @@ public class Game{
 
     private void chooseCategory(){
         //REPLACE WITH VIEW.costam
-        System.out.println("Choose category");
+        System.out.printf("%s choose category: ", this.players.get(this.currentPlayer).getName());
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             this.category = Integer.parseInt(reader.readLine());

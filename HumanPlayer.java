@@ -10,6 +10,7 @@ public class HumanPlayer extends Player{
 
 
     public HumanPlayer( int number){
+        this.name = "Player";
         this.number = number;
         this.handPile = new HandPile();
         this.stockPile = new StockPile();
