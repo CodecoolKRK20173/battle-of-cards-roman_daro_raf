@@ -13,7 +13,7 @@ public class Game{
     private int currentPlayer;
     private int numberOfPlayers;
     private ArrayList<Player> players;
-    private Pile deck;
+    private Deck deck;
     private boolean isWon;
     private int category;
     private ArrayList<Card> handCards;
@@ -104,6 +104,7 @@ public class Game{
     }
 
     private void dealCards(){
+        this.deck.shuffleListOfCards();
         int playerNumber = 0;
         for(Card nextCard: deck.getCards()){
             players.get(playerNumber % this.numberOfPlayers).addCardToStock(nextCard);
@@ -119,7 +120,7 @@ public class Game{
                 this.handCards.clear();
                 moveCardsToHand();
                 revealActiveHand();
-                revealAllCards();
+                
                 getHandCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
