@@ -122,8 +122,11 @@ public class View {
         tableViewString += String.format("%20s\t", " ");
 
         for (Player p: players) {
-            tableViewString += String.format("%20s\t", p.getName() + ": " + p.getStockPile().getSize());
+            if (p.getIsActive()){
+                tableViewString += String.format("%20s\t", p.getName() + ": " + p.getStockPile().getSize());
+            }
         }
+
 
         return tableViewString;
     }
