@@ -67,7 +67,6 @@ public class HumanPlayer extends Player{
     }
 
     public void revealHand(){
-        Card card = handPile.getTop();
-        card.setFaceUp();
+        handPile.getTop().setFaceUp();
     }
 }
