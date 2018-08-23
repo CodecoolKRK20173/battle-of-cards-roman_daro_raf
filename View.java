@@ -2,20 +2,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class View {
-    final int CARD_WIDTH = 20;
-    String topAndDownRow = repeat("#", CARD_WIDTH + 2) + "\n";
+    private final int CARD_WIDTH = 20;
+    private String topAndDownRow = repeat("#", CARD_WIDTH + 2) + "\n";
+    private int amountOfPlayers = 0;
+    private String[] playersNames;
+
+    public int getAmountOfPlayers() {
+        return amountOfPlayers;
+    }
+
+    public String[] getPlayersNames() {
+        return playersNames;
+    }
 
     public void menu() {
         Scanner sc = new Scanner(System.in);
         printMainMenu();
-        String choice = sc.nextLine();
         boolean isRunning = true;
-
+        
         while (isRunning) {
             isRunning = false;
+            String choice = sc.nextLine();
 
             switch (choice) {
                 case "1":
+                howManyPlayers();
+                createPlayersNames(this.amountOfPlayers);
                 break;
                 case "0":
                 break;
@@ -34,6 +46,31 @@ public class View {
         String[] menuOptions = {"1. New game", "0. Exit"};
 
         for (String s: menuOptions) System.out.println(s);
+    }
+
+    private void howManyPlayers() {
+        System.out.println("How many players will play? (2 - 4)");
+        this.amountOfPlayers = getIntInput();
+
+        if (!(this.amountOfPlayers >= 2) && !(this.amountOfPlayers <= 4)) {
+            System.out.println("Wrong choice! Choose number of players from 2 to 4.");
+            howManyPlayers();
+        }
+    }
+
+    private void createPlayersNames(int amountOfPlayers) {
+        this.playersNames = new String[amountOfPlayers];
+        Scanner scanner = new Scanner(System.in);
+
+        if (getAmountOfPlayers() > 1 && getAmountOfPlayers() < 5) {
+            
+            for (int i = 0; i < amountOfPlayers; i++) {
+                System.out.println("Type name of player number " + (i + 1) + ":");
+                String name = scanner.nextLine();
+                this.playersNames[i] = name;
+            }
+        }
+
     }
 
 
@@ -137,6 +174,26 @@ public class View {
 
     private String repeat(String str, int times) {
         return new String(new char[times]).replace("\0", str);
+    }
+
+    private int getIntInput() {
+        Scanner intScanner = new Scanner(System.in);
+        String intString;
+        boolean isNotInteger = true;
+        int number = 0;
+
+        while (isNotInteger) {
+            intString = intScanner.nextLine();
+
+            try {
+                number = Integer.parseInt(intString);
+                isNotInteger = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Error! Type an integer...");
+                isNotInteger = true;
+            }
+        }
+        return number;
     }
 
 }

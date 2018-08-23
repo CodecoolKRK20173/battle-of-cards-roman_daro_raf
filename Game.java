@@ -2,10 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Collections;
+import java.util.Scanner;
 
 public class Game{
     final int POPULATION_COLLUMN = 1;
@@ -23,6 +22,19 @@ public class Game{
     private int winningPlayerIndex;
     private int numberOfCards;
     private View view;
+
+
+    public Game(){
+        this.winningPlayerIndex = -1;
+        this.isWon = false;
+        this.isDraw = true;
+        this.handCards = new ArrayList<>();
+        this.players = new ArrayList<>();
+        this.deck = new Deck();
+        this.currentPlayer = 0;
+        this.view = new View();
+        loadDeck();
+    }
     
 
     public Game(int numberOfPlayers, int numberOfCards, String... names){
@@ -85,6 +97,14 @@ public class Game{
         }
     }
 
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public void setNumberOfCards(int numberOfCards) {
+        this.numberOfCards = numberOfCards;
+    }
+
     private void dealCards(){
         this.deck.shuffleListOfCards();
         int playerNumber = 0;
@@ -95,29 +115,36 @@ public class Game{
     }
 
     public void runGame(){
-        while(!this.isWon){
-            this.isDraw = true;
-            while (isDraw) {    
-                this.handCards.clear();
-                moveCardsToHand();
-                revealActiveHand();
-                
-                getHandCards();
-                this.view.printTableView(handCards, currentPlayer, players);
-                // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
-                chooseCategory();
+        view.menu();
+        if (view.getAmountOfPlayers() > 1 && view.getAmountOfPlayers() < 5) {
+            setNumberOfPlayers(view.getAmountOfPlayers());
+            setNumberOfCards(36);
+            setPlayers(view.getPlayersNames());
+            dealCards();
+            while(!this.isWon){
+                this.isDraw = true;
+                while (isDraw) {    
+                    this.handCards.clear();
+                    moveCardsToHand();
+                    revealActiveHand();
+                    
+                    getHandCards();
+                    this.view.printTableView(handCards, currentPlayer, players);
+                    // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
+                    chooseCategory();
 
-                revealAllCards();
+                    revealAllCards();
 
-                this.view.printTableView(handCards, currentPlayer, players);
-                compareCards();
-                view.printWinningPlayer(winningPlayerIndex, players);
-                
+                    this.view.printTableView(handCards, currentPlayer, players);
+                    compareCards();
+                    view.printWinningPlayer(winningPlayerIndex, players);
+                    
+                }
+                moveCardsToWinningPlayer();
+                deactivateLoosers();
+                setActiveAsWinning();
+                checkIfWon();
             }
-            moveCardsToWinningPlayer();
-            deactivateLoosers();
-            setActiveAsWinning();
-            checkIfWon();
         }
     }
 
@@ -143,11 +170,12 @@ public class Game{
 
     private void chooseCategory(){
         //REPLACE WITH VIEW.costam
-        System.out.printf("%s choose category: ", this.players.get(this.currentPlayer).getName());
+        System.out.println(String.format("%s choose category: ", this.players.get(this.currentPlayer).getName()));
+        Scanner scanner = new Scanner(System.in);
         try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            this.category = Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            this.category = Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
             System.out.printf("Please enter number from 1 - %d", this.numberOfPlayers);     // MOVE THIS TO VIEW
         }
     }
