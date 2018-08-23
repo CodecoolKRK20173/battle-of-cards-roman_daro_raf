@@ -96,21 +96,21 @@ public class Game{
         while(!this.isWon){
             this.isDraw = true;
             while (isDraw) {    
-                deactivateLoosers();
                 this.handCards.clear();
                 moveCardsToHand();
                 revealActiveHand();
+                revealAllCards();
                 getHandCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 chooseCategory();
-                revealAllCards();
                 this.view.printTableView(handCards, currentPlayer, players);
                 compareCards();
                 view.printWinningPlayer(winningPlayerIndex, players);
                 
             }
             moveCardsToWinningPlayer();
+            deactivateLoosers();
             setActiveAsWinning();
             checkIfWon();
         }
@@ -125,7 +125,7 @@ public class Game{
 
     private void moveCardsToHand(){
         for (Player player : this.players) {
-            if(player.getIsActive())
+            if(player.getStockPile().getSize() > 0)
                 player.fromStockToHand();
         }
     }
@@ -147,8 +147,13 @@ public class Game{
 
     private void revealAllCards(){
         for (Player p: players) {
-            p.revealHand();
+            if(p.getIsActive()) p.revealHand();
         }
+    }
+
+    private void getHandCards() {
+        for(Player player: this.players)
+            if (player.getIsActive()) this.handCards.add(player.getHandPile().getTop());
     }
 
     private void compareCards(){
@@ -157,10 +162,6 @@ public class Game{
         setWinningPlayer();
     }
 
-    private void getHandCards() {
-        for(Player player: this.players)
-            this.handCards.add(player.getHandPile().getTop());
-    }
 
     private void sortByCategory(){
         if(this.category == this.POPULATION_COLLUMN)
@@ -185,9 +186,11 @@ public class Game{
 
     private void moveCardsToWinningPlayer(){
         for(Player player: this.players){
-            player.getHandPile().cover();
-            this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
-            player.getHandPile().clear();
+            if(player.getIsActive()){
+                player.getHandPile().cover();
+                this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
+                player.getHandPile().clear();
+            }
         }
     }
 
@@ -198,6 +201,7 @@ public class Game{
     private void checkIfWon(){
         if(this.players.get(this.winningPlayerIndex).getStockPile().getSize() >= this.numberOfCards){
             this.isWon = true;
+            System.out.printf("%s WON", this.players.get(this.winningPlayerIndex));
             // VIEW WILL PRINT WINNING MESSAGE WITH WINNING PLAYER NAME
         }
     }
