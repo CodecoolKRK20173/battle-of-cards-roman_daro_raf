@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Collections;
 
 public class Game{
     final int POPULATION_COLLUMN = 1;
@@ -14,7 +15,7 @@ public class Game{
     private int currentPlayer;
     private int numberOfPlayers;
     private ArrayList<Player> players;
-    private Pile deck;
+    private Deck deck;
     private boolean isWon;
     private int category;
     private ArrayList<Card> handCards;
@@ -85,6 +86,7 @@ public class Game{
     }
 
     private void dealCards(){
+        this.deck.shuffleListOfCards();
         int playerNumber = 0;
         for(Card nextCard: deck.getCards()){
             players.get(playerNumber % this.numberOfPlayers).addCardToStock(nextCard);
