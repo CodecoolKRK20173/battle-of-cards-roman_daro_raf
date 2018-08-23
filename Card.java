@@ -7,6 +7,7 @@ public class Card {
     private int population;
     private int density;
     private int medianAge;
+    private int ownerIndex;
 
     public Card() {
         this.isFaceUp = false;
