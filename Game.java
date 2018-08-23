@@ -117,6 +117,8 @@ public class Game{
         this.players.get(this.currentPlayer).revealHand();
     }
 
+
+
     private void chooseCategory(){
         //REPLACE WITH VIEW.costam
         System.out.printf("%s choose category: ", this.players.get(this.currentPlayer).getName());
@@ -129,7 +131,10 @@ public class Game{
     }
 
     private void revealAllCards(){
-        // TO DO
+        for( Card card : this.handCards) {
+            card.setFaceUp();
+  
+        }
     }
 
     private void compareCards(){

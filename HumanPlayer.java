@@ -7,6 +7,7 @@ public class HumanPlayer extends Player{
     private Pile stockPile;
     private String name;
     private int number;
+    private boolean isActiv;
 
 
     public HumanPlayer( int number){
