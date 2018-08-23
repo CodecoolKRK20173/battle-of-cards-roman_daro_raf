@@ -94,7 +94,7 @@ public class Game{
             while (isDraw) {    
                 moveCardsToHand();
                 System.out.println(this.view.tableView(handCards, currentPlayer, players));
-                System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
+                // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                 revealActiveHand();
                 chooseCategory();
                 revealAllCards();
@@ -169,6 +169,7 @@ public class Game{
     private void moveCardsToWinningPlayer(){
         for(Player player: this.players){
             this.players.get(this.winningPlayerIndex).addCardToStock(player.getHandPile());
+            player.getHandPile().clear();
         }
     }
 

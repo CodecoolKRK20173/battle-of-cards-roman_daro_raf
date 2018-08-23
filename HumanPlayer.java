@@ -3,32 +3,33 @@ import java.util.ArrayList;
 
 public class HumanPlayer extends Player{
     
-    private Pile handPile;
-    private Pile stockPile;
+    private HandPile handPile;
+    private StockPile stockPile;
     private String name;
-    private int number;
+    private int playerIndex;
+    private boolean isActive;
 
 
-    public HumanPlayer( int number){
+    public HumanPlayer( int playerIndex){
         this.name = "Player";
-        this.number = number;
+        this.playerIndex = playerIndex;
         this.handPile = new HandPile();
         this.stockPile = new StockPile();
     }
 
-    public HumanPlayer(String name, int number){
+    public HumanPlayer(String name, int playerIndex){
         this.name = name;
-        this.number = number;
+        this.playerIndex = playerIndex;
         this.handPile = new HandPile();
         this.stockPile = new StockPile();
     }
 
-    public Pile getHandPile(){
-        return handPile;
+    public HandPile getHandPile(){
+        return this.handPile;
     }
 
-    public Pile getStockPile(){
-        return stockPile;
+    public StockPile getStockPile(){
+        return this.stockPile;
     }
 
     public String getName(){
@@ -36,17 +37,25 @@ public class HumanPlayer extends Player{
     }
 
     public int getNumber(){
-        return number;
+        return playerIndex;
+    }
+
+    public boolean getIsActive(){
+        return this.isActive;
+    }
+
+    public void setIsActive(boolean isActive){
+        this.isActive = isActive;
     }
 
     public void addCardToStock(Card card){
-        card.setOwnerIndex(number);
+        card.setOwnerIndex(playerIndex);
         stockPile.addCard(card);
     }
 
     public void addCardToStock(Pile pileOfCards ){
         for (Card  card : pileOfCards.getCards()){
-            card.setOwnerIndex(number);
+            card.setOwnerIndex(playerIndex);
             stockPile.addCard(card);
         }
     }
@@ -61,5 +70,4 @@ public class HumanPlayer extends Player{
         Card card = handPile.getTop();
         card.setFaceUp();
     }
-
 }

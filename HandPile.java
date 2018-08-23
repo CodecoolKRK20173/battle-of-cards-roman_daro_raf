@@ -32,7 +32,9 @@ public class HandPile extends Pile{
         return cards.size();
     }
 
-
+    public void clear(){
+        this.cards.clear();
+    }
 
     
 }
