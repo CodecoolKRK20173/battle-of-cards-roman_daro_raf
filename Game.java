@@ -19,6 +19,22 @@ public class Game{
     private View view;
     
 
+    public Game(){
+        // for(String name: names) System.out.println(name);
+        this.winningPlayerIndex = -1;
+        this.isWon = false;
+        this.isDraw = true;
+        this.handCards = new ArrayList<>();
+        this.players = new ArrayList<>();
+        this.deck = new Deck();
+        this.currentPlayer = 0;
+        this.view = new View();
+        loadDeck();
+        // setPlayers(names);
+        // // setPlayers();
+        //dealCards();
+    }
+
     public Game(int numberOfPlayers, int numberOfCards, String... names){
         // for(String name: names) System.out.println(name);
         this.numberOfPlayers = numberOfPlayers;
@@ -77,6 +93,10 @@ public class Game{
         for(int i = 0; i < this.numberOfPlayers; i++ ){
             this.players.add(new HumanPlayer(i));
         }
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
     }
 
     private void dealCards(){
