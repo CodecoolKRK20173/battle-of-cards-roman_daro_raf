@@ -67,7 +67,7 @@ public class View {
         System.out.println("\nThis turn won: " + players.get( winningPlayerIndex).getName() + "\n");
     }
 
-    public String tableView(ArrayList<Card> handCards, int currentPlayer, ArrayList<Player> players) {
+    private String tableView(ArrayList<Card> handCards, int currentPlayer, ArrayList<Player> players) {
         String[][] table = new String[handCards.size() + 1][7];
 
         fillTableWithLegend(table);
@@ -126,6 +126,10 @@ public class View {
         }
 
         return tableViewString;
+    }
+
+    public void printTableView(ArrayList<Card> handCards, int currentPlayer, ArrayList<Player> players) {
+        System.out.println(tableView(handCards, currentPlayer, players));
     }
 
     private String repeat(String str, int times) {
