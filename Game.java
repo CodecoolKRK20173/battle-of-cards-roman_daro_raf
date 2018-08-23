@@ -37,10 +37,10 @@ public class Game{
             String[] countryData = line.split("/t");
             Card newCard = new Card();
             newCard.setCountryName(countryData[COUNTRY_NAME_COLLUMN]);
-            newCard.setPopulation(Float.valueOf(countryData[POPULATION_COLLUMN]));
-            newCard.setDensity(Float.valueOf(countryData[DENSITY_COLLUMN]));
-            newCard.setArea(Float.valueOf(countryData[AREA_COLLUMN]));
-            newCard.setArea(Float.valueOf(MEDIAN_AGE_COLLUMN));
+            newCard.setPopulation(Integer.valueOf(countryData[POPULATION_COLLUMN]));
+            newCard.setDensity(Integer.valueOf(countryData[DENSITY_COLLUMN]));
+            newCard.setArea(Integer.valueOf(countryData[AREA_COLLUMN]));
+            newCard.setArea(Integer.valueOf(MEDIAN_AGE_COLLUMN));
         }
 
         br.close();

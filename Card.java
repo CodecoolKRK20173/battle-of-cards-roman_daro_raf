@@ -3,10 +3,10 @@
 public class Card {
     private boolean isFaceUp;
     private String countryName;
-    private float area;
-    private float population;
-    private float density;
-    private float medianAge;
+    private int area;
+    private int population;
+    private int density;
+    private int medianAge;
 
     public Card() {
         this.isFaceUp = false;
@@ -20,19 +20,19 @@ public class Card {
         return countryName;
     }
 
-    public float getArea() {
+    public int getArea() {
         return this.area;
     }
 
-    public float getPopulation() {
+    public int getPopulation() {
         return this.population;
     }
 
-    public float getDensity() {
+    public int getDensity() {
         return this.density;
     }
 
-    public float getMedianAge() {
+    public int getMedianAge() {
         return this.medianAge;
     }
 
@@ -52,19 +52,19 @@ public class Card {
         this.countryName = countryName;
     }
 
-    public void setArea(float area) {
+    public void setArea(int area) {
         this.area = area;
     }
 
-    public void setDensity(float density) {
+    public void setDensity(int density) {
         this.density = density;
     }
 
-    public void setMedianAge(float medianAge) {
+    public void setMedianAge(int medianAge) {
         this.medianAge = medianAge;
     }
 
-    public void setPopulation(float population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
     
