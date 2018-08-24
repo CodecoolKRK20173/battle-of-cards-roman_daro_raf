@@ -236,7 +236,7 @@ public class Game{
     private void checkIfWon(){
         if(this.players.get(this.winningPlayerIndex).getStockPile().getSize() >= this.numberOfCards){
             this.isWon = true;
-            System.out.printf("%s WON", this.players.get(this.winningPlayerIndex));
+            System.out.printf("%s WON\n", this.players.get(this.winningPlayerIndex).getName());
             // VIEW WILL PRINT WINNING MESSAGE WITH WINNING PLAYER NAME
         }
     }
