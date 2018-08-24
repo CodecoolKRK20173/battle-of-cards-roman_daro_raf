@@ -3,34 +3,32 @@ import java.util.ArrayList;
 /**
  * StockPile
  */
-public class StockPile extends Pile{
+public class StockPile extends Pile {
 
     ArrayList<Card> cards;
-    
-    public StockPile(){
+
+    public StockPile() {
         cards = new ArrayList<>();
     }
 
-
-    public  void addCard(Card card){
+    public void addCard(Card card) {
         cards.add(card);
     }
-    
-    public  Card getTop(){
+
+    public Card getTop() {
         return cards.get(0);
     }
 
-    public  void removeTop(){
+    public void removeTop() {
         cards.remove(0);
     }
 
-    public  ArrayList<Card> getCards(){
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
-    public  int getSize(){
+    public int getSize() {
         return cards.size();
     }
 
-    
 }

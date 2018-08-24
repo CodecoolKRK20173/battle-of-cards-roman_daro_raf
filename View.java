@@ -19,33 +19,30 @@ public class View {
         Scanner sc = new Scanner(System.in);
         printMainMenu();
         boolean isRunning = true;
-        
+
         while (isRunning) {
             isRunning = false;
             String choice = sc.nextLine();
 
             switch (choice) {
-                case "1":
+            case "1":
                 howManyPlayers();
                 createPlayersNames(this.amountOfPlayers);
                 break;
-                case "0":
+            case "0":
                 break;
-                default: 
+            default:
                 System.out.println("Unknown choice! Try again...");
                 isRunning = true;
-                
             }
         }
-
-        sc.close();
-
     }
 
     private void printMainMenu() {
-        String[] menuOptions = {"1. New game", "0. Exit"};
+        String[] menuOptions = { "1. New game", "0. Exit" };
 
-        for (String s: menuOptions) System.out.println(s);
+        for (String s : menuOptions)
+            System.out.println(s);
     }
 
     private void howManyPlayers() {
@@ -63,16 +60,14 @@ public class View {
         Scanner scanner = new Scanner(System.in);
 
         if (getAmountOfPlayers() > 1 && getAmountOfPlayers() < 5) {
-            
+
             for (int i = 0; i < amountOfPlayers; i++) {
                 System.out.println("Type name of player number " + (i + 1) + ":");
                 String name = scanner.nextLine();
                 this.playersNames[i] = name;
             }
         }
-
     }
-
 
     public String backSuit() {
         String backSuit = "";
@@ -90,18 +85,18 @@ public class View {
         String frontSuit = "";
 
         frontSuit += topAndDownRow;
-        frontSuit += String.format("#%" + (CARD_WIDTH-1) + "s #\n", card.getCountryName());
-        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getPopulation());
-        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getDensity());
-        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getArea());
-        frontSuit += String.format("#%," + (CARD_WIDTH-1) + "d #\n", card.getMedianAge());
+        frontSuit += String.format("#%" + (CARD_WIDTH - 1) + "s #\n", card.getCountryName());
+        frontSuit += String.format("#%," + (CARD_WIDTH - 1) + "d #\n", card.getPopulation());
+        frontSuit += String.format("#%," + (CARD_WIDTH - 1) + "d #\n", card.getDensity());
+        frontSuit += String.format("#%," + (CARD_WIDTH - 1) + "d #\n", card.getArea());
+        frontSuit += String.format("#%," + (CARD_WIDTH - 1) + "d #\n", card.getMedianAge());
         frontSuit += topAndDownRow;
 
         return frontSuit;
     }
 
     public void printWinningPlayer(int winningPlayerIndex, ArrayList<Player> players) {
-        System.out.println("\nThis turn won: " + players.get( winningPlayerIndex).getName() + "\n");
+        System.out.println("\nThis turn won: " + players.get(winningPlayerIndex).getName() + "\n");
     }
 
     private String tableView(ArrayList<Card> handCards, int currentPlayer, ArrayList<Player> players) {
@@ -133,18 +128,17 @@ public class View {
             } else {
                 currentCardSuit = backSuit();
             }
-
             String[] currentCardSuitArray = currentCardSuit.split("\n");
 
             for (int i = 0; i < currentCardSuitArray.length; i++) {
                 table[index][i] = currentCardSuitArray[i];
             }
-
             index++;
         }
     }
 
-    private String tableToString(ArrayList<Card> handCards, String[][] table, int currentPlayer, ArrayList<Player> players) {
+    private String tableToString(ArrayList<Card> handCards, String[][] table, int currentPlayer,
+            ArrayList<Player> players) {
         String tableViewString = "";
 
         tableViewString += "Current player: " + players.get(currentPlayer).getName() + "\n\n";
@@ -158,13 +152,11 @@ public class View {
 
         tableViewString += String.format("%20s\t", " ");
 
-        for (Player p: players) {
-            if (p.getIsActive()){
+        for (Player p : players) {
+            if (p.getIsActive()) {
                 tableViewString += String.format("%20s\t", p.getName() + ": " + p.getStockPile().getSize());
             }
         }
-
-
         return tableViewString;
     }
 
@@ -184,6 +176,7 @@ public class View {
 
         while (isNotInteger) {
             intString = intScanner.nextLine();
+            //intScanner.next();
 
             try {
                 number = Integer.parseInt(intString);

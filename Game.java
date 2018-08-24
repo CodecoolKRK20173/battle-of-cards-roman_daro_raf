@@ -2,9 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class Game{
     final int POPULATION_COLLUMN = 1;
@@ -38,7 +38,6 @@ public class Game{
     
 
     public Game(int numberOfPlayers, int numberOfCards, String... names){
-        // for(String name: names) System.out.println(name);
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfCards = numberOfCards;
         this.winningPlayerIndex = -1;
@@ -51,7 +50,6 @@ public class Game{
         this.view = new View();
         loadDeck();
         setPlayers(names);
-        // setPlayers();
         dealCards();
     }
 
@@ -67,8 +65,6 @@ public class Game{
             String line = br.readLine();
             while (line != null) {
                 String[] countryData = line.split("\t");
-                // for(String data: countryData) System.out.printf("%s ", data);
-                // System.out.println();
                 Card newCard = new Card();
                 newCard.setCountryName(countryData[COUNTRY_NAME_COLLUMN]);
                 newCard.setPopulation(Integer.valueOf(countryData[POPULATION_COLLUMN]));
@@ -126,15 +122,11 @@ public class Game{
                 while (isDraw) {    
                     this.handCards.clear();
                     moveCardsToHand();
-                    revealActiveHand();
-                    
+                    revealActiveHand();                    
                     getHandCards();
                     this.view.printTableView(handCards, currentPlayer, players);
-                    // System.out.println(this.players.get(0).getHandPile().getTop().getMedianAge());
                     chooseCategory();
-
                     revealAllCards();
-
                     this.view.printTableView(handCards, currentPlayer, players);
                     compareCards();
                     view.printWinningPlayer(winningPlayerIndex, players);
@@ -168,15 +160,13 @@ public class Game{
 
 
 
-    private void chooseCategory(){
-        //REPLACE WITH VIEW.costam
+    private void chooseCategory() {
         System.out.println(String.format("%s choose category: ", this.players.get(this.currentPlayer).getName()));
-        Scanner scanner = new Scanner(System.in);
         try{
-            //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            this.category = Integer.parseInt(scanner.nextLine());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            this.category = Integer.parseInt(reader.readLine());
         } catch (Exception e) {
-            System.out.printf("Please enter number from 1 - %d", this.numberOfPlayers);     // MOVE THIS TO VIEW
+            System.out.printf("Please enter number from 1 - %d", this.numberOfPlayers);
         }
     }
 
@@ -210,8 +200,7 @@ public class Game{
 
     }
 
-    private void markIfDraw(){
-        // should save draw in separate class that remembers isDraw and player indexes
+    private void markIfDraw() {
         this.isDraw = false;
     }
 
@@ -237,7 +226,6 @@ public class Game{
         if(this.players.get(this.winningPlayerIndex).getStockPile().getSize() >= this.numberOfCards){
             this.isWon = true;
             System.out.printf("%s WON\n", this.players.get(this.winningPlayerIndex).getName());
-            // VIEW WILL PRINT WINNING MESSAGE WITH WINNING PLAYER NAME
         }
     }
 }
